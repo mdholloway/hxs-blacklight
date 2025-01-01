@@ -85,7 +85,7 @@ class WikibaseIngest
     end
 
     def json_file_path
-      ENV.fetch('WIKIBASE_EXPORT_JSON_FILE', 'json/ds-latest.json')
+      ENV.fetch('WIKIBASE_EXPORT_JSON_FILE', 'json/ds-latest.json.gz')
     end
 
     def json_file_full_path

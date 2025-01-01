@@ -4,6 +4,7 @@ require 'csv'
 require 'date'
 require 'time'
 require 'optparse'
+require 'zlib'
 
 
 # SOLR dynamic fields
@@ -184,7 +185,8 @@ end.parse!
 		end
 
 ## load JSON into a Ruby array
-data = JSON.load_file importJSONfile
+file = Zlib::GzipReader.open(importJSONfile).read
+data = JSON.parse file
 
 ## read property names into array < from property-names.csv
 
