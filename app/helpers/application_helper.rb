@@ -108,7 +108,7 @@ module ApplicationHelper
   def property_value(document:, field:, value:, context:, config:)
     values = Array(value).map do |json_string|
       data = JSON.parse json_string
-      data['PV']
+      get_display_text(data)
     end
 
     safe_join values, '<br />'.html_safe
@@ -159,24 +159,35 @@ module ApplicationHelper
 
   def search_link_item(json_string, field, facet_field)
     data = JSON.parse json_string
-    return if data['QL'].blank?
+    return unless data['linked_terms']
 
     render partial: 'shared/search_link',
-           locals: { field: field, facet_field: facet_field, term: data['QL'] }
+           locals: {
+             field: field,
+             facet_field: facet_field,
+             term: data['linked_terms'].first['label']
+           }
   end
 
   def search_data_link_item(json_string, field, facet_field)
     data = JSON.parse json_string
-    label = data['AGR'].present? ? "#{data['PV']} / #{data['AGR']}" : data['PV']
     render partial: 'shared/search_data_link',
            locals: {
              field: field,
              facet_field: facet_field,
-             label: label,
-             term: data['QL'],
-             source: data['QU'],
-             source_acronym: find_url_acronym(data['QU'])
+             display_text: get_display_text(data),
+             linked_terms: (data['linked_terms'] || []).map do |term|
+               {
+                 label: term['label'],
+                 source_url: term['source_url'],
+                 source_acronym: find_url_acronym(term['source_url'])
+               }
+             end
            }
+  end
+
+  def get_display_text(data)
+    data['original_script'].present? ? "#{data['recorded_value']} / #{data['original_script']}" : data['recorded_value']
   end
 
   def find_url_acronym(url, default: LINK_DATA_DEFAULT)
