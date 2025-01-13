@@ -146,6 +146,7 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
+    config.add_index_field 'id', label: 'DS ID'
     config.add_index_field 'title_facet', label: 'Title'
     config.add_index_field 'author_facet', label: 'Author'
     config.add_index_field 'place_facet', label: 'Place',
