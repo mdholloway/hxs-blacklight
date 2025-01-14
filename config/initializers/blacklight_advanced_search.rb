@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveSupport.on_load :action_controller do
   module BlacklightAdvancedSearch
     class QueryParser
@@ -88,7 +90,6 @@ ActiveSupport.on_load :action_controller do
 
   module BlacklightAdvancedSearch
     module RenderConstraintsOverride
-
       def guided_search(my_params = params)
         constraints = []
         if my_params[:q1].present?

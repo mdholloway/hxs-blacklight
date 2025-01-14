@@ -169,7 +169,8 @@ class CatalogController < ApplicationController
     config.add_show_field 'date_display', label: 'Date', helper_method: :search_data_link
     config.add_show_field 'language_display', label: 'Language', helper_method: :search_data_link
     config.add_show_field 'material_display', label: 'Material', helper_method: :search_data_link
-    config.add_show_field 'physical_description_display', label: 'Physical Description',                                                          helper_method: :property_value
+    config.add_show_field 'physical_description_display',
+                          label: 'Physical Description', helper_method: :property_value
     config.add_show_field 'owner_display', label: 'Former Owner(s)', helper_method: :search_data_link
     config.add_show_field 'agent_display', label: 'Associated Agent(s)', helper_method: :search_data_link
     config.add_show_field 'note_display', label: 'Note', helper_method: :property_value
@@ -232,7 +233,7 @@ class CatalogController < ApplicationController
         qf: 'author_search',
         pf: 'author_search'
       }
-    end    
+    end
 
     config.add_search_field 'artist', label: 'Artist' do |field|
       field.include_in_simple_select = false
@@ -256,7 +257,7 @@ class CatalogController < ApplicationController
         qf: 'owner_search',
         pf: 'owner_search'
       }
-    end   
+    end
 
     config.add_search_field 'agent', label: 'Agent(s)' do |field|
       field.include_in_simple_select = false
@@ -264,7 +265,7 @@ class CatalogController < ApplicationController
         qf: 'agent_facet',
         pf: 'agent_facet'
       }
-    end       
+    end
 
     config.add_search_field 'place', label: 'Place' do |field|
       field.solr_parameters = {
@@ -281,21 +282,21 @@ class CatalogController < ApplicationController
       }
     end
 
-   config.add_search_field 'language', label: 'Language' do |field|
+    config.add_search_field 'language', label: 'Language' do |field|
       field.include_in_simple_select = false
       field.solr_parameters = {
         qf: 'language_search',
         pf: 'language_search'
       }
-    end    
+    end
 
-   config.add_search_field 'keyword', label: 'Keywords' do |field|
+    config.add_search_field 'keyword', label: 'Keywords' do |field|
       field.include_in_simple_select = false
       field.solr_parameters = {
         qf: 'term_search',
         pf: 'term_search'
       }
-    end    
+    end
 
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate

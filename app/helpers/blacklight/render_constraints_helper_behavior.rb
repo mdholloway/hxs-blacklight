@@ -4,7 +4,6 @@
 # code, so method signatures and semantics should not be changed casually.
 # implementations can be of course.
 module Blacklight
-  
   # Includes methods for rendering contraints graphically on the search results page (render_constraints(_*))
   module RenderConstraintsHelperBehavior
     extend Deprecation
