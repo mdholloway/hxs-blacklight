@@ -33,7 +33,7 @@ class CatalogController < ApplicationController
     config.advanced_search[:form_solr_parameters]['f.scribe_facet.facet.limit'] ||= -1
     config.advanced_search[:form_solr_parameters]['f.artist_facet.facet.limit'] ||= -1
     config.advanced_search[:form_solr_parameters]['f.place_facet.facet.limit'] ||= -1
-    config.advanced_search[:form_solr_parameters]['f.century_int.facet.limit'] ||= -1
+    config.advanced_search[:form_solr_parameters]['f.date_facet.facet.limit'] ||= -1
     config.advanced_search[:form_solr_parameters]['f.language_facet.facet.limit'] ||= -1
     config.advanced_search[:form_solr_parameters]['f.material_facet.facet.limit'] ||= -1
     config.advanced_search[:form_solr_parameters]['f.owner_facet.facet.limit'] ||= -1
@@ -111,7 +111,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'scribe_facet', label: 'Scribe', limit: 5
     config.add_facet_field 'artist_facet', label: 'Artist', limit: 5
     config.add_facet_field 'place_facet', label: 'Place', limit: 5 # , single: true
-    config.add_facet_field 'century_int', label: 'Century', limit: 5, sort: 'alpha', helper_method: :century_label
+    config.add_facet_field 'date_facet', label: 'Century', limit: 5, sort: 'alpha', helper_method: :century_label
     config.add_facet_field 'language_facet', label: 'Language', limit: 5
     config.add_facet_field 'material_facet', label: 'Material', limit: 5
     config.add_facet_field 'owner_facet', label: 'Former Owner', limit: 5

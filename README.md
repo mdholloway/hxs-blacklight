@@ -69,13 +69,12 @@ This repo contains Blacklight 7.31.0 customized for Digital Scriptorium
 <dynamicField name="*_facet" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
 <dynamicField name="*_meta" type="string" multiValued="true" indexed="true" stored="true"/>
 <dynamicField name="*_link" type="string" multiValued="true" indexed="true" stored="true"/>
-<dynamicField name="*_int" type="int" multiValued="true" indexed="true" stored="true"/>
 ```
 
 ### dynamic fields (yml)
 
 ```
- - name: "*_display" 
+  - name: "*_display" 
     type: "string" 
     multiValued: true
     indexed: true
@@ -98,11 +97,6 @@ This repo contains Blacklight 7.31.0 customized for Digital Scriptorium
     stored: true
   - name: "*_link" 
     type: "string" 
-    multiValued: true
-    indexed: true
-    stored: true
-  - name: "*_int" 
-    type: "int" 
     multiValued: true
     indexed: true
     stored: true
@@ -180,7 +174,6 @@ After wikibase-to-solr.rb, in import.json:
 - _search (for text search, tokenized)
 - _facet (for displaying in sidebar facets, not tokenized)
 - _link (for displaying as a hyperlink)
-- _int (for dates)
 - _meta (for plain text data)
 
 ### overview (pseudo-code)
