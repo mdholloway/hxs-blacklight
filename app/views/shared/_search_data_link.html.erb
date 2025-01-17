@@ -3,7 +3,7 @@
     <br />
     <% linked_terms.each do |term| %>
       <div class='ds-ld-bar'>
-        <%= link_to term[:label], root_path(f: { facet_field => Array(term[:facet_field]) }), class: 'ds-ld-search' %>
+        <%= link_to term[:label], root_path(f: { facet_field => Array(term[:facet]) }), class: 'ds-ld-search' %>
         <% if term[:source_url].present? %>
           <span class="ds-ld-float">
             <%= image_tag 'sbts2018-flat.png', class: 'ds-ld-img', title: 'Linked Data', alt: 'Linked Data indicator' %>
