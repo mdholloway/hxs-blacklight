@@ -173,13 +173,12 @@ module ApplicationHelper
     data = JSON.parse json_string
     render partial: 'shared/search_data_link',
            locals: {
-             field: field,
-             facet_field: facet_field,
              display_text: get_display_text(data),
              linked_terms: (data['linked_terms'] || []).map do |term|
                {
                  label: term['label'],
-                 facet: term['facet'] || term['label'],
+                 facet_field: term['facet_field'] || facet_field,
+                 facet_value: term['facet_value'] || term['label'],
                  source_url: term['source_url'],
                  source_acronym: find_url_acronym(term['source_url'])
                }
