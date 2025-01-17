@@ -142,7 +142,7 @@ class CatalogController < ApplicationController
 
     config.add_show_field 'id', label: 'DS ID', separator_options: { words_connector: '<br />', last_word_connector: '<br />' } # , accessor: :make_btn_ds
     config.add_show_field 'shelfmark_display', label: 'Shelfmark', helper_method: :search_data_link
-    config.add_show_field 'title_display', label: 'Title', helper_method: :property_value
+    config.add_show_field 'title_display', label: 'Title', helper_method: :search_data_link
     config.add_show_field 'author_display', label: 'Author', helper_method: :search_data_link
     config.add_show_field 'scribe_display', label: 'Scribe', helper_method: :search_data_link
     config.add_show_field 'artist_display', label: 'Artist', helper_method: :search_data_link
