@@ -179,6 +179,7 @@ module ApplicationHelper
              linked_terms: (data['linked_terms'] || []).map do |term|
                {
                  label: term['label'],
+                 facet_field: term['facet_field'] || term['label'],
                  source_url: term['source_url'],
                  source_acronym: find_url_acronym(term['source_url'])
                }
