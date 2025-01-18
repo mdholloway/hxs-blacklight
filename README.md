@@ -109,7 +109,7 @@ This repo contains Blacklight 7.31.0 customized for Digital Scriptorium
 ```
 
 ## Wikibase to Solr Script
-wikibase-to-solr.rb
+lib/wikibase_to_solr.rb
 
 ### root field names
 
