@@ -203,7 +203,7 @@ Pull the latest changes from WikiBase export Git repository.
 
 - `WIKIBASE_REPOSITORY_PATH` (**default:** '../ds_exports') - The relative path, relative to `Rails.root` directory, to the local Wikibase Git instance.
 - `WIKIBASE_REPOSITORY_URL` (**default:** 'https://github.com/DigitalScriptorium/ds-exports') - The remote location to the Wikibase export Git repository.
-- `WIKIBASE_EXPORT_JSON_FILE` (**default:** 'json/ds-latest.json') - The relative location in the Git repository to the JSON export file.
+- `WIKIBASE_EXPORT_JSON_FILE` (**default:** 'json/ds-latest.json.gz') - The relative location in the Git repository to the JSON export file.
 
 #### Exit codes
 - 0 - Success
@@ -228,13 +228,13 @@ Converts the Wikibase JSON export file using the [Wikibase to Solr Script](#wiki
 #### Parameters
 
 - `ouput` [String] (optional, **default:** 'tmp/solr_data.json') - The location relative to `Rails.root` to write the solr document JSON file.
-- `input` [String] (optional, **default:** '../ds_exports/json/ds-latest.json') - The location relative to `Rails.root` to the Wikibase export JSON file.
+- `input` [String] (optional, **default:** '../ds_exports/json/ds-latest.json.gz') - The location relative to `Rails.root` to the Wikibase export JSON file.
 - `verbose` [Boolean] (optional) - Write the debug output to STDOUT.
 
 #### Environment Variables
 
 - `WIKIBASE_REPOSITORY_PATH` (**default:** '../ds_exports') - The relative path, relative to `Rails.root` directory, to the local Wikibase Git instance.
-- `WIKIBASE_EXPORT_JSON_FILE` (**default:** 'json/ds-latest.json') - The relative location in the Git repository to the JSON export file.
+- `WIKIBASE_EXPORT_JSON_FILE` (**default:** 'json/ds-latest.json.gz') - The relative location in the Git repository to the JSON export file.
 
 #### Exit codes
 
