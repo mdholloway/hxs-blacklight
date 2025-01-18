@@ -34,9 +34,9 @@ jobs:
         with:
           bundler-cache: true
       - name: Create Solr container
-        run: docker run --name solr -d -p 8983:8983 -v ${PWD}/solr/conf:/blacklight-core/conf solr solr-precreate blacklight-core /blacklight-core
+        run: docker run --name solr -d -p 8983:8983 -v ${{ github.workspace }}/solr/conf:/blacklight-core/conf solr solr-precreate blacklight-core /blacklight-core
       - name: Load Solr data
-        run: zcat ${PWD}/data/solr-seed.json.gz | curl 'http://127.0.0.1:8983/solr/blacklight-core/update/json?commit=true' --data-binary @- -H 'Content-type:application/json'
+        run: zcat ${{ github.workspace }}/data/solr-seed.json.gz | curl 'http://127.0.0.1:8983/solr/blacklight-core/update/json?commit=true' --data-binary @- -H 'Content-type:application/json'
       # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load
