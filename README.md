@@ -59,7 +59,7 @@ This repo contains Blacklight 7.31.0 customized for Digital Scriptorium
 
 ### config/
 - solr-schema.yml contains custom dynamic fields (below)
-- solr-seed.json contains Wikibase data from 2023-03-17
+- solr-seed.json.gz contains Solr documents created from the 2025-01-15 Wikibase export
 
 ### dynamic fields (xml)
 
