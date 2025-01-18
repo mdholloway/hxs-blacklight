@@ -51,8 +51,8 @@ gem 'blacklight_advanced_search', git: 'https://github.com/ewlarson/blacklight_a
                                   branch: 'bl7-fix-gentle-hands'
 
 group :development, :test do
-  gem 'brakeman'
-  gem 'bundler-audit'
+  gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'upennlib-rubocop', '~> 1.1', require: false
