@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 require 'digital_scriptorium'
-require 'json'
 require 'logging'
 require 'optparse'
-require 'set'
 require 'time'
 require 'tty-spinner'
 require 'zlib'
@@ -13,7 +11,6 @@ dir = File.dirname __FILE__
 
 input_file = File.expand_path 'wikibase_export.json.gz', dir
 output_file = File.expand_path 'solr_import.json', dir
-config_file = File.expand_path 'property_config.yml', dir
 pretty_print = false
 
 logger = Logging.logger($stdout)
@@ -27,10 +24,6 @@ OptionParser.new { |opts|
 
   opts.on('-o', '--out FILE', 'The file path to output the formatted Solr JSON file.') do |f|
     output_file = File.expand_path f, dir
-  end
-
-  opts.on('-c', '--config FILE', 'The file path to the property configuration file.') do |f|
-    config_file = File.expand_path f, dir
   end
 
   opts.on('-p', '--pretty-print', 'Whether to pretty-print the JSON output.') do
