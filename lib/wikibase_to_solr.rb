@@ -72,7 +72,7 @@ generating_spinner.auto_spin
 File.open(output_file, 'w') do |file|
   file << '['
 
-  export_hash.each_with_index do |(_, entity), idx|
+  export_hash.values do |entity|
     next unless record?(entity)
 
     meta = DigitalScriptorium::DsMeta.new(entity, export_hash)
@@ -93,7 +93,7 @@ File.open(output_file, 'w') do |file|
       end
     end
 
-    file << ',' if item_count > 0
+    file << ',' if item_count.positive?
     file << "\n" if pretty_print
     file << (pretty_print ? JSON.pretty_generate(solr_item) : JSON.generate(solr_item))
 
