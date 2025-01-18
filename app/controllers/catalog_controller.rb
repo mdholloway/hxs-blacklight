@@ -26,7 +26,8 @@ class CatalogController < ApplicationController
     config.advanced_search[:form_solr_parameters]['facet.limit'] ||= -1
     config.advanced_search[:form_solr_parameters]['facet.sort'] ||= 'index'
 
-    # The 'facet.limit' -1 value is not respected here, catalog_controller.rb configuration facet limits are still passed along to Solr. This manually adjusts the facet count to -1 for schema_provider_s and gbl_resourceType_sm
+    # The 'facet.limit' -1 value is not respected here, catalog_controller.rb configuration facet limits are still
+    # passed along to Solr. This manually adjusts the facet count to -1 for schema_provider_s and gbl_resourceType_sm
     config.advanced_search[:form_solr_parameters]['f.institution_facet.facet.limit'] ||= -1
     config.advanced_search[:form_solr_parameters]['f.author_facet.facet.limit'] ||= -1
     config.advanced_search[:form_solr_parameters]['f.title_facet.facet.limit'] ||= -1
@@ -88,10 +89,10 @@ class CatalogController < ApplicationController
     config.add_results_collection_tool(:per_page_widget)
     config.add_results_collection_tool(:view_type_group)
 
-    ### https://github.com/projectblacklight/blacklight/blob/main/app/views/catalog/_show_tools.html.erb (copy, add new panel)
     config.add_show_tools_partial(:bookmark, partial: 'bookmark_control', if: :render_bookmarks_control?)
     # config.add_show_tools_partial(:email, callback: :email_action, validator: :validate_email_params)
-    # config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action, validator: :validate_sms_params)
+    # config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action,
+    #                                     validator: :validate_sms_params)
     config.add_show_tools_partial(:citation)
 
     ## https://github.com/projectblacklight/blacklight/blob/main/app/views/blacklight/nav/_bookmark.html.erb
@@ -130,8 +131,9 @@ class CatalogController < ApplicationController
     config.add_index_field 'id', label: 'DS ID'
     config.add_index_field 'title_facet', label: 'Title'
     config.add_index_field 'author_facet', label: 'Author'
-    config.add_index_field 'place_facet', label: 'Place',
-                                          separator_options: { words_connector: '<br />', last_word_connector: '<br />' }
+    config.add_index_field 'place_facet', label: 'Place', separator_options: {
+      words_connector: '<br />', last_word_connector: '<br />'
+    }
     config.add_index_field 'date_meta', label: 'Date'
 
     # solr fields to be displayed in the show (single result) view
@@ -140,7 +142,9 @@ class CatalogController < ApplicationController
 
     # #display v3.0
 
-    config.add_show_field 'id', label: 'DS ID', separator_options: { words_connector: '<br />', last_word_connector: '<br />' } # , accessor: :make_btn_ds
+    config.add_show_field 'id', label: 'DS ID', separator_options: {
+      words_connector: '<br />', last_word_connector: '<br />'
+    } # , accessor: :make_btn_ds
     config.add_show_field 'shelfmark_display', label: 'Shelfmark', helper_method: :search_data_link
     config.add_show_field 'title_display', label: 'Title', helper_method: :search_data_link
     config.add_show_field 'author_display', label: 'Author', helper_method: :search_data_link
@@ -181,102 +185,68 @@ class CatalogController < ApplicationController
 
     config.add_search_field 'all_fields', label: 'All Fields' do |field|
       field.solr_parameters = {
-        qf: 'id_search institution_search shelfmark_search title_search artist_search author_search scribe_search owner_search
-    term_search language_search date_search place_search material_search physical_description_search note_search',
-        pf: 'id_search institution_search shelfmark_search title_search artist_search author_search scribe_search owner_search
-    term_search language_search date_search place_search material_search physical_description_search note_search'
+        qf: 'id_search institution_search shelfmark_search title_search artist_search author_search scribe_search
+    owner_search term_search language_search date_search place_search material_search physical_description_search
+    note_search',
+        pf: 'id_search institution_search shelfmark_search title_search artist_search author_search scribe_search
+    owner_search term_search language_search date_search place_search material_search physical_description_search
+    note_search'
       }
     end
 
     config.add_search_field 'institution', label: 'Holding Institution' do |field|
-      field.solr_parameters = {
-        qf: 'institution_search',
-        pf: 'institution_search'
-      }
+      field.solr_parameters = { qf: 'institution_search', pf: 'institution_search' }
     end
 
     config.add_search_field 'shelfmark', label: 'Shelfmark' do |field|
-      field.solr_parameters = {
-        qf: 'shelfmark_search',
-        pf: 'shelfmark_search'
-      }
+      field.solr_parameters = { qf: 'shelfmark_search', pf: 'shelfmark_search' }
     end
 
     config.add_search_field 'title', label: 'Title' do |field|
-      field.solr_parameters = {
-        qf: 'title_search',
-        pf: 'title_search'
-      }
+      field.solr_parameters = { qf: 'title_search', pf: 'title_search' }
     end
 
     config.add_search_field 'author', label: 'Author' do |field|
-      field.solr_parameters = {
-        qf: 'author_search',
-        pf: 'author_search'
-      }
+      field.solr_parameters = { qf: 'author_search', pf: 'author_search' }
     end
 
     config.add_search_field 'artist', label: 'Artist' do |field|
       field.include_in_simple_select = false
-      field.solr_parameters = {
-        qf: 'artist_facet artist_search',
-        pf: ''
-      }
+      field.solr_parameters = { qf: 'artist_facet artist_search', pf: '' }
     end
 
     config.add_search_field 'scribe', label: 'Scribe' do |field|
       field.include_in_simple_select = false
-      field.solr_parameters = {
-        qf: 'scribe_search',
-        pf: 'scribe_search'
-      }
+      field.solr_parameters = { qf: 'scribe_search', pf: 'scribe_search' }
     end
 
     config.add_search_field 'owner', label: 'Owner(s)' do |field|
       field.include_in_simple_select = false
-      field.solr_parameters = {
-        qf: 'owner_search',
-        pf: 'owner_search'
-      }
+      field.solr_parameters = { qf: 'owner_search', pf: 'owner_search' }
     end
 
     config.add_search_field 'agent', label: 'Agent(s)' do |field|
       field.include_in_simple_select = false
-      field.solr_parameters = {
-        qf: 'agent_facet',
-        pf: 'agent_facet'
-      }
+      field.solr_parameters = { qf: 'agent_facet', pf: 'agent_facet' }
     end
 
     config.add_search_field 'place', label: 'Place' do |field|
-      field.solr_parameters = {
-        qf: 'place_search',
-        pf: 'place_search'
-      }
+      field.solr_parameters = { qf: 'place_search', pf: 'place_search' }
     end
 
     config.add_search_field 'date', label: 'Date' do |field|
       field.include_in_simple_select = false
-      field.solr_parameters = {
-        qf: 'date_search',
-        pf: 'date_search'
-      }
+      field.solr_parameters = { qf: 'date_search', pf: 'date_search' }
     end
 
     config.add_search_field 'language', label: 'Language' do |field|
       field.include_in_simple_select = false
-      field.solr_parameters = {
-        qf: 'language_search',
-        pf: 'language_search'
-      }
+      field.solr_parameters = { qf: 'language_search', pf: 'language_search' }
     end
 
     config.add_search_field 'keyword', label: 'Keywords' do |field|
       field.include_in_simple_select = false
-      field.solr_parameters = {
-        qf: 'term_search',
-        pf: 'term_search'
-      }
+      field.solr_parameters = { qf: 'term_search', pf: 'term_search' }
     end
 
     # Now we see how to over-ride Solr request handler defaults, in this

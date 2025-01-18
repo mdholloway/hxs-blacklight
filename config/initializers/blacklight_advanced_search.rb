@@ -9,11 +9,11 @@ ActiveSupport.on_load :action_controller do
         # for guided search add the operations if there are queries to join
         # NOTs get added to the query. Only AND/OR are operations
         @keyword_op = []
-        if !(@params[:q1].blank? || @params[:q2].blank? || @params[:op2] == 'NOT') && (@params[:f1] != @params[:f2])
-          @keyword_op << @params[:op2]
-        end
-        if !(@params[:q3].blank? || @params[:op3] == 'NOT' || (@params[:q1].blank? && @params[:q2].blank?)) && !([@params[:f1],
-                                                                                                                  @params[:f2]].include?(@params[:f3]) && ((@params[:f1] == @params[:f3] && @params[:q1].present?) || (@params[:f2] == @params[:f3] && @params[:q2].present?)))
+        @keyword_op << @params[:op2] if !(@params[:q1].blank? || @params[:q2].blank? || @params[:op2] == 'NOT') && (@params[:f1] != @params[:f2])
+        if !(@params[:q3].blank? || @params[:op3] == 'NOT' || (@params[:q1].blank? && @params[:q2].blank?)) &&
+           !([@params[:f1], @params[:f2]].include?(@params[:f3]) &&
+           ((@params[:f1] == @params[:f3] && @params[:q1].present?) ||
+            (@params[:f2] == @params[:f3] && @params[:q2].present?)))
           @keyword_op << @params[:op3]
         end
         @keyword_op
@@ -23,9 +23,7 @@ ActiveSupport.on_load :action_controller do
         unless @keyword_queries
           @keyword_queries = {}
 
-          unless @params[:search_field] == ::AdvancedController.blacklight_config.advanced_search[:url_key]
-            return @keyword_queries
-          end
+          return @keyword_queries unless @params[:search_field] == ::AdvancedController.blacklight_config.advanced_search[:url_key]
 
           q1 = @params[:q1]
           q2 = @params[:q2]
@@ -66,9 +64,8 @@ ActiveSupport.on_load :action_controller do
         queries = []
         ops = keyword_op
         keyword_queries.each do |field, query|
-          queries << ParsingNesting::Tree.parse(query,
-                                                config.advanced_search[:query_parser]).to_query(local_param_hash(field,
-                                                                                                                 config))
+          queries << ParsingNesting::Tree.parse(query, config.advanced_search[:query_parser])
+                                         .to_query(local_param_hash(field, config))
           queries << ops.shift
         end
         queries.join(' ')

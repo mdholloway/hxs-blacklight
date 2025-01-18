@@ -47,9 +47,10 @@ module AdvancedHelper
     key_value
   end
 
-  # carries over original search field and original guided search fields if user switches to guided search from regular search
+  # carries over original search field and guided search fields if user switches to guided search from regular search
   def guided_field(field_num, default_val)
-    if field_num == :f1 && params[:f1].nil? && params[:f2].nil? && params[:f3].nil? && params[:search_field] && search_fields_for_advanced_search[params[:search_field]]
+    if field_num == :f1 && params[:f1].nil? && params[:f2].nil? && params[:f3].nil? && params[:search_field] &&
+       search_fields_for_advanced_search[params[:search_field]]
       return search_fields_for_advanced_search[params[:search_field]].key || default_val
     end
 
@@ -63,11 +64,11 @@ module AdvancedHelper
   end
 
   # carries over guided search operations if user switches back to guided search from regular search
-  def guided_radio(op_num, op)
-    if params[op_num]
-      params[op_num] == op
+  def guided_radio(operator_number, operator)
+    if params[operator_number]
+      params[operator_number] == operator
     else
-      op == 'AND'
+      operator == 'AND'
     end
   end
 end

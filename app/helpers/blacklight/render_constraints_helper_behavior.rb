@@ -35,7 +35,8 @@ module Blacklight
                                end
 
       Deprecation.silence(Blacklight::RenderConstraintsHelperBehavior) do
-        render_constraints_query(params_or_search_state) + render_constraints_clauses(params_or_search_state) + render_constraints_filters(params_or_search_state)
+        render_constraints_query(params_or_search_state) + render_constraints_clauses(params_or_search_state) +
+          render_constraints_filters(params_or_search_state)
       end
     end
 
