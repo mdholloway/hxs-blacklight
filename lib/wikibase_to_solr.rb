@@ -71,7 +71,6 @@ generating_spinner.auto_spin
 
 File.open(output_file, 'w') do |file|
   file << '['
-  file << "\n" if pretty_print
 
   export_hash.each_with_index do |(_, entity), idx|
     next unless record?(entity)
@@ -94,13 +93,14 @@ File.open(output_file, 'w') do |file|
       end
     end
 
-    file << (pretty_print ? JSON.pretty_generate(solr_item) : JSON.generate(solr_item))
-    file << ',' if idx < export_hash.size - 1
+    file << ',' if item_count > 0
     file << "\n" if pretty_print
+    file << (pretty_print ? JSON.pretty_generate(solr_item) : JSON.generate(solr_item))
 
     item_count += 1
   end
 
+  file << "\n" if pretty_print
   file << ']'
 end
 
