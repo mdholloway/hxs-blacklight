@@ -22,6 +22,12 @@ jobs:
           POSTGRES_DB: rails_test
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
+      solr:
+        image: solr:9.0.0
+        ports:
+          - "8983:8983"
+        volumes:
+          - ${{ github.workspace }}/solr/conf:/blacklight-core/conf
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
@@ -33,10 +39,10 @@ jobs:
         uses: ruby/setup-ruby@78c01b705fd9d5ad960d432d3a0cfa341d50e410 # v1.179.1
         with:
           bundler-cache: true
-      - name: Create Solr container
-        run: docker run --name solr -d -p 8983:8983 -v ${{ github.workspace }}/solr/conf:/blacklight-core/conf solr solr-precreate blacklight-core /blacklight-core
+      - name: Create Solr core
+        run: curl http://solr:8983/solr/admin/cores?action=CREATE&name=blacklight-core&instanceDir=%2Fblacklight-core
       - name: Load Solr data
-        run: zcat ${{ github.workspace }}/data/solr-seed.json.gz | curl 'http://127.0.0.1:8983/solr/blacklight-core/update/json?commit=true' --data-binary @- -H 'Content-type:application/json'
+        run: zcat ${{ github.workspace }}/data/solr-seed.json.gz | curl 'http://solr:8983/solr/blacklight-core/update/json?commit=true' --data-binary @- -H 'Content-type:application/json'
       # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load
