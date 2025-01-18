@@ -184,7 +184,7 @@ lib/wikibase_to_solr.rb
     - intiialize solr_item
     - for each of [manuscript, holding, record]:
       - for each { property_id => statement_list }
-        - continue unless property_id is known
+        - next unless property_id is known
         - for each claim in statement_list:
           - extract Solr fields and merge them into solr_item
   - write solr_item to output_file
