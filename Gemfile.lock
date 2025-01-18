@@ -100,7 +100,12 @@ GEM
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.16.1, < 2)
       sassc-rails (>= 2.0.0)
+    brakeman (7.0.0)
+      racc
     builder (3.2.4)
+    bundler-audit (0.9.2)
+      bundler (>= 1.2.0, < 3)
+      thor (~> 1.0)
     capybara (3.37.1)
       addressable
       matrix
@@ -354,6 +359,8 @@ DEPENDENCIES
   blacklight_range_limit (~> 7.8)
   bootsnap
   bootstrap (~> 4.0)
+  brakeman
+  bundler-audit
   capybara
   debug
   devise
