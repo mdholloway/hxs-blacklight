@@ -28,7 +28,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
-                      
+
 gem 'addressable', '~> 2.8'
 gem 'blacklight', '>= 7.0'
 gem 'blacklight_range_limit', '~> 7.8'

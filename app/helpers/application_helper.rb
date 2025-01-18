@@ -169,7 +169,7 @@ module ApplicationHelper
            }
   end
 
-  def search_data_link_item(json_string, field, facet_field)
+  def search_data_link_item(json_string, _field, facet_field)
     data = JSON.parse json_string
     render partial: 'shared/search_data_link',
            locals: {
