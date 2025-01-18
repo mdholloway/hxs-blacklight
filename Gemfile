@@ -35,12 +35,15 @@ gem 'blacklight_range_limit', '~> 7.8'
 gem 'bootstrap', '~> 4.0'
 gem 'devise'
 gem 'devise-guests', '~> 0.8'
+gem 'digital_scriptorium', '~> 0.2'
 gem 'faraday', '~> 2.7'
 gem 'hashdiff', '~> 1.0'
 gem 'jquery-rails'
 gem 'jsbundling-rails', '~> 1.1'
+gem 'logging-rails', '~> 0.6', require: 'logging/rails'
 gem 'rsolr', '>= 1.0', '< 3'
 gem 'sassc-rails', '~> 2.1'
+gem 'tty-spinner', '~> 0.9'
 gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
 gem 'whenever', '~> 1.0', require: false
 
@@ -55,7 +58,7 @@ group :development, :test do
   gem 'bundler-audit', require: false
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
-  gem 'upennlib-rubocop', '~> 1.1', require: false
+  gem 'upennlib-rubocop', '~> 1.2', require: false
 end
 
 group :development do

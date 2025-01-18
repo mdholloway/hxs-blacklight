@@ -111,19 +111,6 @@ This repo contains Blacklight 7.31.0 customized for Digital Scriptorium
 ## Wikibase to Solr Script
 wikibase-to-solr.rb
 
-### property-names.csv
-
-The fieldnames are used as the root of the Solr fieldname, combined with the appropriate dynamic field as outlined above.
-
-In Wikibase:
-- P1 = "DS ID"
-
-In property-names.csv:
-- P1 = "id"
-
-After wikibase-to-solr.rb, in import.json:
-- id, id_display, id_search
-
 ### root field names
 
 - P1,id
@@ -186,21 +173,21 @@ After wikibase-to-solr.rb, in import.json:
 ### overview (pseudo-code)
 
 - require ruby libraries
-- configure field output arrays (by P-id)
 - configure general settings
 - define custom functions
-- load JSON
-- load property-names.csv into a lookup array
-- first EACH-DO = populate lookup arrays (labels, uris, p2records, p3records)
-- second EACH-DO = main loop
-  - fetch Wikibase item id
-  - merge ids (3 Wikibase records become 1 merged Solr record)
-  - load the claims
-  - when the item matches instance_of=1,2,3, parse
-  - evaluate all properties in the claims array
-  - if the property contains qualifiers, evaluate all qualifiers inside that property
-  - data transformation rules and logic for special cases (P14, P23, P25, P36, P37, P30, P31)
-- output $solrObjects array as JSON to file
+- load gzipped JSON
+- deserialize to Export object
+- convert to export_hash keyed by Item/Property QID
+- for each { property_id => entity } in export_hash:
+  - if entity is a DS 2.0 record:
+    - find linked manuscript and active holding QIDs, get full items from export_hash by QID
+    - intiialize solr_item
+    - for each of [manuscript, holding, record]:
+      - for each { property_id => statement_list }
+        - continue unless property_id is known
+        - for each claim in statement_list:
+          - extract Solr fields and merge them into solr_item
+  - write solr_item to output_file
 
 ## Solr Data Pipeline Rake Tasks
 
