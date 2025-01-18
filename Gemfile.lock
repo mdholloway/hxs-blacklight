@@ -399,6 +399,7 @@ DEPENDENCIES
   rails (~> 7.0.4)
   redis (~> 4.0)
   rsolr (>= 1.0, < 3)
+  rubocop-rake
   sassc-rails (~> 2.1)
   selenium-webdriver
   sprockets-rails
