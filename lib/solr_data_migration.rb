@@ -58,7 +58,7 @@ class SolrDataMigration
   end
 
   def add_documents!(documents)
-    Rails.logger.debug '[SolrDataMigration] Adding new documents'
+    Rails.logger.debug "[SolrDataMigration] Adding #{documents.size} new documents"
     solr.add documents
     solr.commit
   end

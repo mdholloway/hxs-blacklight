@@ -72,7 +72,7 @@ generating_spinner.auto_spin
 File.open(output_file, 'w') do |file|
   file << '['
 
-  export_hash.values do |entity|
+  export_hash.each_value do |entity|
     next unless record?(entity)
 
     meta = DigitalScriptorium::DsMeta.new(entity, export_hash)
