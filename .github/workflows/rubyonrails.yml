@@ -39,8 +39,8 @@ jobs:
         run: docker cp data/solr-seed.json.gz solr:/tmp/solr-seed.json.gz
       - name: Create Solr core
         run: docker exec solr precreate-core blacklight-core /opt/solr/conf
-      - name: Start Solr
-        run: docker exec solr bin/solr start
+      - name: Retart Solr
+        run: docker exec solr bin/solr restart
       - name: Load Solr seed data
         run: docker exec solr /bin/sh -c 'zcat /tmp/solr-seed.json.gz | curl -X POST "http://localhost:8983/solr/blacklight-core/update/json?commit=true" --data-binary @- -H "Content-type:application/json"'
       - name: Install Ruby and gems
