@@ -13,8 +13,7 @@ runs:
   image: solr:9.0.0
   using: docker
   args:
-    - bin/solr
-    - create
+    - solr-create
     - -c
     - ${{ inputs.core-name }}
     - -d
