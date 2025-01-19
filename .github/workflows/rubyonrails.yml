@@ -13,7 +13,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container: ruby:3.1.2
     services:
       postgres:
         image: postgres:11-alpine
@@ -25,6 +24,8 @@ jobs:
           POSTGRES_PASSWORD: password
       solr:
         image: solr:9.0.0
+        ports:
+          - "8983:8983"
         options: --name solr
     env:
       RAILS_ENV: test
@@ -37,9 +38,11 @@ jobs:
       - name: Create Solr core
         run: docker exec solr precreate-core blacklight-core /opt/solr/conf
       - name: Load Solr seed data
-        run: zcat ${{ github.workspace }}/data/solr-seed.json.gz | curl 'http://localhost:8983/solr/blacklight-core/update/json?commit=true' --data-binary @- -H 'Content-type:application/json'
-      - name: Install gems
-        run: bin/bundle install
+        run: zcat ${{ github.workspace }}/data/solr-seed.json.gz | curl "solr://localhost:8983/solr/blacklight-core/update/json?commit=true" --data-binary @- -H "Content-type:application/json"
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@78c01b705fd9d5ad960d432d3a0cfa341d50e410 # v1.179.1
+        with:
+          bundler-cache: true
       - name: Run database migrations
         run: bin/rake db:migrate
       - name: Run tests
