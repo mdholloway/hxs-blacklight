@@ -40,7 +40,7 @@ jobs:
       - name: Create Solr core
         run: docker exec solr precreate-core blacklight-core /opt/solr/conf
       - name: Load Solr seed data
-        run: docker exec solr /bin/sh -c 'zcat /tmp/solr-seed.json.gz | curl -X POST "http://localhost:8983/solr/blacklight-core/update/json?commit=true" --data-binary @- -H "Content-type:application/json"'
+        run: docker exec solr /bin/sh -c 'zcat /tmp/solr-seed.json.gz | curl -X POST "http://0.0.0.0:8983/solr/blacklight-core/update/json?commit=true" --data-binary @- -H "Content-type:application/json"'
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@78c01b705fd9d5ad960d432d3a0cfa341d50e410 # v1.179.1
         with:
@@ -49,7 +49,6 @@ jobs:
         run: bin/rake db:migrate
       - name: Run tests
         run: bin/rake rubocop
-
   lint:
     runs-on: ubuntu-latest
     steps:
