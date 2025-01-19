@@ -39,7 +39,7 @@ jobs:
       - name: Run database migrations
         run: bin/rake db:migrate
       - name: Create Solr core
-        uses: ./github/actions/create-solr-core
+        uses: ./.github/actions/create-solr-core
       - name: Load Solr data
         run: zcat ${{ github.workspace }}/data/solr-seed.json.gz | curl 'http://solr:8983/solr/blacklight-core/update/json?commit=true' --data-binary @- -H 'Content-type:application/json'
       - name: Run tests
