@@ -44,7 +44,7 @@ jobs:
       - name: Restart Solr
         run: docker restart solr
       - name: Wait for Solr to be healthy
-        run: docker exec solr wait-for-solr
+        run: docker exec solr wait-for-solr.sh
       - name: Load Solr seed data
         run: docker exec solr /bin/sh -c 'zcat /tmp/solr-seed.json.gz | curl -X POST "http://localhost:8983/solr/blacklight-core/update/json?commit=true" --data-binary @- -H "Content-type:application/json"'
       - name: Install Ruby and gems
