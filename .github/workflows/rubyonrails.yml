@@ -26,22 +26,25 @@ jobs:
         image: solr:9.0.0
         ports:
           - "8983:8983"
+        options: --name solr
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      - name: Copy Solr config files
+        run: docker cp solr/conf solr:/opt/solr/conf
+      - name: Create Solr core
+        run: docker exec solr bin/solr precreate-core blacklight-core /opt/solr/conf
+      - name: Load Solr seed data
+        run: zcat ${{ github.workspace }}/data/solr-seed.json.gz | curl 'http://solr:8983/solr/blacklight-core/update/json?commit=true' --data-binary @- -H 'Content-type:application/json'
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@78c01b705fd9d5ad960d432d3a0cfa341d50e410 # v1.179.1
         with:
           bundler-cache: true
       - name: Run database migrations
         run: bin/rake db:migrate
-      - name: Create Solr core
-        uses: ./.github/actions/create-solr-core
-      - name: Load Solr data
-        run: zcat ${{ github.workspace }}/data/solr-seed.json.gz | curl 'http://solr:8983/solr/blacklight-core/update/json?commit=true' --data-binary @- -H 'Content-type:application/json'
       - name: Run tests
         run: bin/rake rubocop
 
