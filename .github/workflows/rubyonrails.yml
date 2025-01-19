@@ -40,7 +40,7 @@ jobs:
       - name: Create Solr core
         run: docker exec solr precreate-core blacklight-core /opt/solr/conf
       - name: Retart Solr
-        run: docker exec solr bin/solr restart
+        run: docker exec solr bin/solr restart --user-managed
       - name: Load Solr seed data
         run: docker exec solr /bin/sh -c 'zcat /tmp/solr-seed.json.gz | curl -X POST "http://localhost:8983/solr/blacklight-core/update/json?commit=true" --data-binary @- -H "Content-type:application/json"'
       - name: Install Ruby and gems
