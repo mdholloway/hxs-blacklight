@@ -38,7 +38,7 @@ jobs:
       - name: Create Solr core
         run: docker exec solr precreate-core blacklight-core /opt/solr/conf
       - name: Load Solr seed data
-        run: zcat ${{ github.workspace }}/data/solr-seed.json.gz | curl "http://127.0.0.1:8983/solr/blacklight-core/update/json?commit=true" --data-binary @- -H "Content-type:application/json"
+        run: zcat ${{ github.workspace }}/data/solr-seed.json.gz | curl "localhost:8983/solr/blacklight-core/update/json?commit=true" --data-binary @- -H "Content-type:application/json"
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@78c01b705fd9d5ad960d432d3a0cfa341d50e410 # v1.179.1
         with:
