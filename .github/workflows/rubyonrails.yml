@@ -36,7 +36,7 @@ jobs:
       - name: Copy Solr config files
         run: docker cp solr/conf solr:/opt/solr/conf
       - name: Create Solr core
-        run: docker exec solr bin/solr precreate-core blacklight-core /opt/solr/conf
+        run: docker exec solr precreate-core blacklight-core /opt/solr/conf
       - name: Load Solr seed data
         run: zcat ${{ github.workspace }}/data/solr-seed.json.gz | curl 'http://solr:8983/solr/blacklight-core/update/json?commit=true' --data-binary @- -H 'Content-type:application/json'
       - name: Install Ruby and gems
