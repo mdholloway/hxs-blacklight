@@ -187,7 +187,7 @@ lib/wikibase_to_solr.rb
         - next unless property_id is known
         - for each claim in statement_list:
           - extract Solr fields and merge them into solr_item
-  - write solr_item to output_file
+    - write solr_item to output_file
 
 ## Solr Data Pipeline Rake Tasks
 
