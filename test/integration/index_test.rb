@@ -8,6 +8,8 @@ class IndexTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select '.documents-list > article' do |articles|
+      assert articles.length.positive?
+
       articles.each do |article|
         assert_select article, '.blacklight-id'
         assert_select article, '.blacklight-title_facet'
