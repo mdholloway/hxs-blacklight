@@ -417,3 +417,9 @@ Make sure that the docker server is running.
 8) Under the **Configuration** look for the public IP
 9) Copy the public IP and past it into the browser
 10) Change the port to **8983**
+
+## Integration Tests
+
+Integration tests are provided for the index (search results) and show (item detail) views. The tests depend on Postgres available on port 5432 and Solr loaded with DS Catalog data on port 8983. This is accomplished via GitHub Actions in CI.
+
+Run the tests with `bundle exec rails test`.
