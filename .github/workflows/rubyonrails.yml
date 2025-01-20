@@ -50,7 +50,15 @@ jobs:
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@78c01b705fd9d5ad960d432d3a0cfa341d50e410 # v1.179.1
         with:
+          ruby-version: "3.1.2"
           bundler-cache: true
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "16.17.0"
+          cache: yarn
+      - name: Install Yarn packages
+        run: yarn install
       - name: Run database migrations
         run: bin/rake db:migrate
       - name: Run tests
