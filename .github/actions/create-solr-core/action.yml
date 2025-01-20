@@ -1,0 +1,20 @@
+name: 'Create Blacklight Core'
+description: 'Creates the Solr core used by the DS Catalog Blacklight app'
+inputs:
+  core-name:
+    description: 'Name of the Solr core to create'
+    required: true
+    default: 'blacklight-core'
+  config-dir:
+    description: 'Path to the Solr configuration directory'
+    required: true
+    default: 'solr/conf'
+runs:
+  image: solr:9.0.0
+  using: docker
+  args:
+    - solr-create
+    - -c
+    - ${{ inputs.core-name }}
+    - -d
+    - ${{ inputs.config-dir }}

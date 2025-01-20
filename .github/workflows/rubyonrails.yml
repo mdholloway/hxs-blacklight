@@ -22,24 +22,49 @@ jobs:
           POSTGRES_DB: rails_test
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
+      solr:
+        image: solr:9.0.0
+        ports:
+          - "8983:8983"
+        volumes:
+          - /opt/solr/conf
+        options: --name solr
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      # Add or replace dependency steps here
+      - name: Copy Solr config files
+        run: docker cp solr/conf solr:/opt/solr/conf
+      - name: Copy Solr seed data
+        run: docker cp data/solr-seed.json.gz solr:/tmp/solr-seed.json.gz
+      - name: Create Solr core
+        run: docker exec solr precreate-core blacklight-core /opt/solr/conf
+      - name: Restart Solr
+        run: docker restart solr
+      - name: Wait for Solr to be healthy
+        run: docker exec solr wait-for-solr.sh
+      - name: Load Solr seed data
+        run: docker exec solr /bin/sh -c 'zcat /tmp/solr-seed.json.gz | curl -X POST "http://localhost:8983/solr/blacklight-core/update/json?commit=true" --data-binary @- -H "Content-type:application/json"'
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@78c01b705fd9d5ad960d432d3a0cfa341d50e410 # v1.179.1
         with:
+          ruby-version: "3.1.2"
           bundler-cache: true
-      # Add or replace database setup steps here
-      - name: Set up database schema
-        run: bin/rails db:schema:load
-      # Add or replace test runners here
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "16.17.0"
+          cache: yarn
+      - name: Install Yarn packages
+        run: yarn install
+      - name: Yarn build
+        run: yarn build
+      - name: Run database migrations
+        run: bin/rake db:migrate
       - name: Run tests
-        run: bin/rake
-
+        run: bin/rails test
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -51,7 +76,6 @@ jobs:
           bundler-cache: true
       - name: Generate binstubs
         run: bundle binstubs brakeman rubocop
-      # Add or replace any other lints here
       - name: Security audit application code
         run: bin/brakeman -q -w2
       - name: Lint Ruby files
