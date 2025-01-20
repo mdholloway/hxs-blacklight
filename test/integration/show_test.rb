@@ -15,12 +15,12 @@ class ShowTest < ActionDispatch::IntegrationTest
 
     # Assert title value with original script text
     assert_select 'dd.blacklight-title_display' do |el|
-      el.text.starts_with?('Kitāb al-Majisṭī / كتاب المجسطي.')
+      assert el.text.starts_with?('Kitāb al-Majisṭī / كتاب المجسطي.')
     end
 
     # Assert author value with original script text
     assert_select 'dd.blacklight-author_display' do |el|
-      el.text.starts_with?('Ptolemy, active 2nd century / بطليموس، active 2nd century')
+      assert el.text.starts_with?('Ptolemy, active 2nd century / بطليموس، active 2nd century')
     end
 
     # Assert owner values with original script and four linked data bars
