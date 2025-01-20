@@ -23,10 +23,12 @@ class ShowTest < ActionDispatch::IntegrationTest
       el.text.starts_with?('Ptolemy, active 2nd century / بطليموس، active 2nd century')
     end
 
-    # Assert owner values with original script and linked data bars
+    # Assert owner values with original script and four linked data bars
     assert_select 'dd.blacklight-owner_display' do |el|
-      assert el.text.include?('/') unless el.text.starts_with?('Schoenberg, Lawrence J')
-      assert_select '> div.ds-ld-bar'
+      assert el.text.include?('Muḥammad ʻAbd al-Ḥayy ibn ʻAbd al-Kabīr al-Kinānī al-Ḥasanī / محمد عبد الحي بن عبد الكبير الكناني الحسني،')
+      assert el.text.include?('Aḥmad ibn Mubārak Luṭf Allāh / احمد بن مبارك لطف الله،')
+      assert el.text.include?('Muḥammad al-Raʼīs / محمد الرأيس،')
+      assert_select '> div.ds-ld-bar', 4
     end
   end
 
