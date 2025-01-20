@@ -59,6 +59,8 @@ jobs:
           cache: yarn
       - name: Install Yarn packages
         run: yarn install
+      - name: Yarn build
+        run: yarn build
       - name: Run database migrations
         run: bin/rake db:migrate
       - name: Run tests
