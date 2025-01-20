@@ -54,7 +54,7 @@ jobs:
       - name: Run database migrations
         run: bin/rake db:migrate
       - name: Run tests
-        run: bin/rake rubocop
+        run: bin/rails test
   lint:
     runs-on: ubuntu-latest
     steps:
