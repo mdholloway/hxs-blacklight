@@ -320,9 +320,6 @@ GEM
     tilt (2.0.11)
     timeout (0.3.0)
     trailblazer-option (0.1.2)
-    tty-cursor (0.7.1)
-    tty-spinner (0.9.3)
-      tty-cursor (~> 0.7)
     twitter-typeahead-rails (0.11.1.pre.corejavascript)
       actionpack (>= 3.1)
       jquery-rails
@@ -403,7 +400,6 @@ DEPENDENCIES
   sassc-rails (~> 2.1)
   selenium-webdriver
   sprockets-rails
-  tty-spinner (~> 0.9)
   twitter-typeahead-rails (= 0.11.1.pre.corejavascript)
   tzinfo-data
   upennlib-rubocop (~> 1.2)

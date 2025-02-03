@@ -43,7 +43,6 @@ gem 'jsbundling-rails', '~> 1.1'
 gem 'logging-rails', '~> 0.6', require: 'logging/rails'
 gem 'rsolr', '>= 1.0', '< 3'
 gem 'sassc-rails', '~> 2.1'
-gem 'tty-spinner', '~> 0.9'
 gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
 gem 'whenever', '~> 1.0', require: false
 

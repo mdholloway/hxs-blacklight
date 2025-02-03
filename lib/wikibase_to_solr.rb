@@ -4,7 +4,6 @@ require 'digital_scriptorium'
 require 'logging'
 require 'optparse'
 require 'time'
-require 'tty-spinner'
 require 'zlib'
 
 dir = File.dirname __FILE__
@@ -53,21 +52,13 @@ def record?(entity)
     entity.record?
 end
 
-start_time = Time.now.utc
-
-loading_spinner = TTY::Spinner.new('[:spinner] Loading export data', hide_cursor: true)
-loading_spinner.auto_spin
-
 export_json = Zlib::GzipReader.open(input_file).read
 export_hash = DigitalScriptorium::ExportRepresenter.new(DigitalScriptorium::Export.new)
                                                    .from_json(export_json)
                                                    .to_hash
-loaded_time = Time.now.utc
-loading_spinner.success("(#{format('%0.02f', loaded_time - start_time)}s)")
 
+start_time = Time.now.utc
 item_count = 0
-generating_spinner = TTY::Spinner.new('[:spinner] Generating Solr documents', hide_cursor: true)
-generating_spinner.auto_spin
 
 File.open(output_file, 'w') do |file|
   file << '['
@@ -105,5 +96,4 @@ File.open(output_file, 'w') do |file|
 end
 
 finish_time = Time.now.utc
-generating_spinner.success("(#{format('%0.02f', finish_time - loaded_time)}s)")
 logger.info "Generated #{item_count} Solr documents in #{format('%0.02f', finish_time - start_time)} seconds"
