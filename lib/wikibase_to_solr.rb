@@ -6,20 +6,17 @@ require 'optparse'
 require 'time'
 require 'zlib'
 
-dir = File.dirname __FILE__
-logger = Logging.logger($stdout)
-
 options = {}
 
 OptionParser.new { |opts|
   opts.banner = 'Usage: wikibase_to_solr.rb [options]'
 
   opts.on('-i', '--in FILE', 'The file path to the gzipped Wikibase JSON export file.') do |f|
-    options[:input_file] = File.expand_path f, dir
+    options[:input_file] = f
   end
 
   opts.on('-o', '--out FILE', 'The file path to output the formatted Solr JSON file.') do |f|
-    options[:output_file] = File.expand_path f, dir
+    options[:output_file] = f
   end
 
   opts.on('-p', '--pretty-print', 'Whether to pretty-print the JSON output.') do
@@ -33,6 +30,7 @@ abort('Output file (-o) is required.') unless options[:output_file]
 input_file = options[:input_file]
 output_file = options[:output_file]
 pretty_print = options[:pretty_print]
+logger = Logging.logger($stdout)
 
 def merge(solr_item, new_props)
   solr_item.merge(new_props) do |_, old_val, new_val|
