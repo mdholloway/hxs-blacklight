@@ -15,11 +15,11 @@ OptionParser.new { |opts|
   opts.banner = 'Usage: wikibase_to_solr.rb [options]'
 
   opts.on('-i', '--in FILE', 'The file path to the gzipped Wikibase JSON export file.') do |f|
-    options[:input_file] = File.expand_path f, dir
+    options[:input_file] = f
   end
 
   opts.on('-o', '--out FILE', 'The file path to output the formatted Solr JSON file.') do |f|
-    options[:output_file] = File.expand_path f, dir
+    options[:output_file] = f
   end
 
   opts.on('-p', '--pretty-print', 'Whether to pretty-print the JSON output.') do
