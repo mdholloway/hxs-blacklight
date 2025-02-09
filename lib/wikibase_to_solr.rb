@@ -6,9 +6,6 @@ require 'optparse'
 require 'time'
 require 'zlib'
 
-dir = File.dirname __FILE__
-logger = Logging.logger($stdout)
-
 options = {}
 
 OptionParser.new { |opts|
@@ -33,6 +30,7 @@ abort('Output file (-o) is required.') unless options[:output_file]
 input_file = options[:input_file]
 output_file = options[:output_file]
 pretty_print = options[:pretty_print]
+logger = Logging.logger($stdout)
 
 def merge(solr_item, new_props)
   solr_item.merge(new_props) do |_, old_val, new_val|
