@@ -73,7 +73,16 @@ def record?(entity)
     entity.record?
 end
 
-export_json = Zlib::GzipReader.open(input_file).read
+##
+# Checks if a file is gzipped based on its extension.
+#
+# @param entity [String] the filename to check.
+# @return [Boolean] true if the the filename ends in '.gz', otherwise false.
+def is_gzipped?(filename)
+  File.extname(filename).to_s.downcase == '.gz'
+end
+
+export_json = is_gzipped?(input_file) ? Zlib::GzipReader.open(input_file).read : File.read(input_file)
 export_hash = DigitalScriptorium::ExportRepresenter.new(DigitalScriptorium::Export.new)
                                                    .from_json(export_json)
                                                    .to_hash
