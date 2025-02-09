@@ -74,7 +74,7 @@ File.open(output_file, 'w') do |file|
     solr_item = base_solr_item(meta)
 
     [meta.holding, meta.manuscript, meta.record].each do |item|
-      item.claims.each do |property_id, claims|
+      item.claims_hash.each do |property_id, claims|
         claims.each do |claim|
           next unless DigitalScriptorium::Transformers.defined? property_id
 
