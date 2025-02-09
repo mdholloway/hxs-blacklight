@@ -32,12 +32,26 @@ output_file = options[:output_file]
 pretty_print = options[:pretty_print]
 logger = Logging.logger($stdout)
 
+##
+# Merges values of Solr properties.
+#
+# Note that these values will always be arrays. In contrast to Hash#merge, the values from
+# new_props are added to the existing array for the same key rather than overwriting it.
+#
+# @param solr_item [Hash] The original Solr item.
+# @param new_props [Hash] The new properties to merge into the Solr item.
+# @return [Hash] The merged Solr item.
 def merge(solr_item, new_props)
   solr_item.merge(new_props) do |_, old_val, new_val|
     old_val.nil? ? new_val : (old_val + new_val).uniq
   end
 end
 
+##
+# Initializes a Solr item from a DS Meta object containing manuscript, active holding, and DS 2.0 records.
+#
+# @param meta [DigitalScriptorium::DsMeta] the metadata object containing manuscript information.
+# @return [Hash] the base Solr item with initial properties set.
 def base_solr_item(meta)
   ds_id = meta.manuscript.ds_id
   {
@@ -48,6 +62,11 @@ def base_solr_item(meta)
   }
 end
 
+##
+# Checks if a given entity is a DS 2.0 record.
+#
+# @param entity [Object] the entity to check.
+# @return [Boolean] true if the entity is a DS 2.0 record, false otherwise.
 def record?(entity)
   entity.is_a?(DigitalScriptorium::DsItem) &&
     entity.claims_by_property_id?(DigitalScriptorium::PropertyId::INSTANCE_OF) &&
