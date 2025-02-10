@@ -63,17 +63,6 @@ def base_solr_item(meta)
 end
 
 ##
-# Checks if a given entity is a DS 2.0 record.
-#
-# @param entity [Object] the entity to check.
-# @return [Boolean] true if the entity is a DS 2.0 record, false otherwise.
-def record?(entity)
-  entity.is_a?(DigitalScriptorium::DsItem) &&
-    entity.claims_by_property_id?(DigitalScriptorium::PropertyId::INSTANCE_OF) &&
-    entity.record?
-end
-
-##
 # Checks if a file is gzipped based on its extension.
 #
 # @param entity [String] the filename to check.
@@ -94,7 +83,7 @@ File.open(output_file, 'w') do |file|
   file << '['
 
   export_hash.each_value do |entity|
-    next unless record?(entity)
+    next unless entity.is_a? DigitalScriptorium::Record
 
     meta = DigitalScriptorium::DsMeta.new(entity, export_hash)
     solr_item = base_solr_item(meta)

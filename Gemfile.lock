@@ -133,7 +133,7 @@ GEM
       warden (~> 1.2.3)
     devise-guests (0.8.1)
       devise
-    digital_scriptorium (0.2.1)
+    digital_scriptorium (0.3.0)
       wikibase_representable (~> 0.1)
     erubi (1.11.0)
     execjs (2.8.1)
