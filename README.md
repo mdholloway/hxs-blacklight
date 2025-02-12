@@ -348,13 +348,12 @@ See https://github.com/javan/whenever#customize-email-recipient-with-the-mailto-
 
 - Code - *No Action* - Code changes should be detected by Rails
 - Migrations - Run `docker-compose run --rm app bundle exec rake db:migrate`
-- Solr Schema Changes - Run `docker-compose run --rm app bundle exec rake solr1:schema:update`
+- Solr Schema Changes - Run `docker-compose run --rm app bundle exec rake solr:schema:update`
 - Gemfile - Rerun `docker-compose run --rm app bundle install` and restart `app` container
 
 ### Links/URLs
 - Web - http://localhost:3000
 - Solr - http://localhost:8983/solr
-- Postgres -  http://localhost:5432
 
 ## Deploy to Staging Environment
 
